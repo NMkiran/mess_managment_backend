@@ -27,7 +27,10 @@ export class HistoryController {
   public getHistorySummary = async (req: Request, res: Response, next: NextFunction): Promise<void> => {
     try {
       const summary = await this.historyService.getHistorySummary();
-      res.status(200).json(summary);
+      res.status(200).json({
+        data: summary,
+        message: 'History summary retrieved successfully'
+      });
     } catch (error) {
       next(error);
     }

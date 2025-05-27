@@ -11,6 +11,6 @@ export class HomeRoute {
   }
 
   private initializeRoutes() {
-    this.router.get(`${this.path}/dashboard`, this.homeController.getDashboard);
+    this.router.get(`/dashboard`, this.homeController.getDashboard);
   }
-} 
+}

@@ -10,11 +10,11 @@ export class IndexRoute implements Routes {
   }
 
   private initializeRoutes() {
-    this.router.get(`${this.path}`, (req, res) => {
+    this.router.get('/', (req, res) => {
       res.status(200).json({
         message: 'Server is running',
         timestamp: new Date().toISOString(),
       });
     });
   }
-} 
+}

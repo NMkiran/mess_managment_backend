@@ -8,11 +8,12 @@ import hpp from 'hpp';
 import morgan from 'morgan';
 import swaggerJSDoc from 'swagger-jsdoc';
 import swaggerUi from 'swagger-ui-express';
-import { NODE_ENV, PORT, LOG_FORMAT, ORIGIN, CREDENTIALS } from '@config';
+import { NODE_ENV, PORT, LOG_FORMAT, ORIGIN, CREDENTIALS, NAME, AGE } from '@config';
 import { dbConnection } from '@database';
 import { Routes } from '@interfaces/routes.interface';
 import { ErrorMiddleware } from '@middlewares/error.middleware';
 import { logger, stream } from '@utils/logger';
+import { getLocalIPv4Address } from './utils/network';
 
 export class App {
   public app: express.Application;
@@ -27,7 +28,7 @@ export class App {
     this.connectToDatabase();
     this.initializeMiddlewares();
     this.initializeRoutes(routes);
-    this.initializeSwagger();
+    // this.initializeSwagger();
     this.initializeErrorHandling();
   }
 
@@ -36,6 +37,7 @@ export class App {
       logger.info(`=================================`);
       logger.info(`======= ENV: ${this.env} =======`);
       logger.info(`🚀 App listening on the port ${this.port}`);
+      logger.info(`IP address: ${getLocalIPv4Address()}`);
       logger.info(`=================================`);
     });
   }
@@ -62,6 +64,9 @@ export class App {
   private initializeRoutes(routes: Routes[]) {
     routes.forEach(route => {
       this.app.use(route.path || '/', route.router);
+    });
+    this.app.use((req, res) => {
+      res.status(404).send({ message: 'Not Found' });
     });
   }
 

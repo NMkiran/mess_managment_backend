@@ -11,8 +11,8 @@ export class HistoryRoute {
   }
 
   private initializeRoutes() {
-    this.router.get(`${this.path}`, this.historyController.getHistory);
-    this.router.get(`${this.path}/type/:type`, this.historyController.getHistoryByType);
-    this.router.get(`${this.path}/summary`, this.historyController.getHistorySummary);
+    this.router.get(`/`, this.historyController.getHistory);
+    this.router.get(`/type/:type`, this.historyController.getHistoryByType);
+    this.router.get(`/summary`, this.historyController.getHistorySummary);
   }
 } 

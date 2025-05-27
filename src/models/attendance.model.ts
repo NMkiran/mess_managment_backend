@@ -49,7 +49,6 @@ const attendanceSchema = new Schema<IAttendance>(
   }
 );
 
-// Compound index to prevent duplicate attendance entries
-attendanceSchema.index({ memberId: 1, mealType: 1, date: 1 }, { unique: true });
+
 
 export const Attendance = model<IAttendance>('Attendance', attendanceSchema); 
